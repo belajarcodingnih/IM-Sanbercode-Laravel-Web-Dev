@@ -1,0 +1,44 @@
+1. Membuat Database
+
+CREATE DATABASE myshop;
+ 
+2. Membuat table di dalam Database
+
+table users
+CREATE TABLE users( id int(8) PRIMARY KEY AUTO_INCREMENT, name varchar(255) NOT null, email varchar(255) NOT null, password varchar(255) NOT null );
+
+table category
+CREATE TABLE category( id int(8) PRIMARY KEY AUTO_INCREMENT, name varchar(255) NOT null );
+
+tabel items
+CREATE TABLE items( id int(8) PRIMARY KEY AUTO_INCREMENT, name varchar(255) NOT null, description varchar(255) NOT null, price int(8) NOT null, stock int(8) NOT null, category_id int(8) NOT null, FOREIGN KEY(category_id) REFERENCES category(id) );
+
+
+3. Memasukkan Data pada table
+
+insert data users
+INSERT INTO users(name, email, password) VALUES ("John Doe", "john@doe.com", "john123"), ("Jane Doe", "jane@doe.com", "jenita123");
+
+insert data category
+INSERT INTO category(name) VALUES ("gadget"), ("cloth"), ("men"), ("women"), ("branded");
+
+insert data items
+INSERT INTO items(name, description, price, stock, category_id) VALUES ("Sumsang b50", "hape keren dari merek sumsang", 4000000, 100, 1), ("Uniklooh", "baju keren dari brand ternama", 500000, 50, 2), ("IMHO Watch", "jam tangan anak yang jujur banget", 2000000, 10, 1);
+
+4. Mengambil data dari Database
+    a. mengambil data users kecuali password  
+    SELECT name, email from users;
+
+    b. mengambil data items
+    -Buatlah sebuah query untuk mendapatkan data item pada table items yang memiliki harga di atas 1000000 (satu juta).
+    SELECT * from items WHERE price > 1000000;
+
+    -Buat sebuah query untuk mengambil data item pada table items yang memiliki name serupa atau mirip (like) dengan kata kunci “uniklo”, “watch”, atau “sang” (pilih salah satu saja).
+    SELECT * from items where name LIKE "%watch";
+
+    c. menampilkan data items join dengan category
+    SELECT items.id, items.name, items.description, items.price, items.stock, items.category_id, category.name AS category from items INNER JOIN category on items.category_id = category.id;
+
+5. Mengubah Data dari Database
+
+UPDATE items set price=2500000 where id=1;
